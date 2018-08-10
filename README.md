@@ -1,4 +1,4 @@
-# hexo-generator-search
+# hexo-generator-search-cst
 
 [![npm](https://img.shields.io/npm/v/hexo-generator-search.svg)](https://www.npmjs.com/package/hexo-generator-search)
 [![npm](https://img.shields.io/npm/dm/hexo-generator-search.svg)](https://www.npmjs.com/package/hexo-generator-search)
@@ -9,10 +9,43 @@ Generate search data for Hexo 3.0. This plugin is used for generating a search i
 - [Demo JSON output](https://github.com/PaicHyperionDev/hexo-generator-search/blob/master/demo_output/search.json)
 - [Demo XML output](https://github.com/PaicHyperionDev/hexo-generator-search/blob/master/demo_output/search.xml)
 
+
+# 重要说明
+
+由于`nunjucks`模板引擎不兼容emberjs的`{{}}`标签，所以修改了`nunjucks`模板引擎的标签占位符。
+
+| nunjucks默认占位符 | 修改后的占位符 |
+| ================ | ============ |
+|        {{        |      {$      |
+|        }}        |     $}      |
+|        {#        |      {@     |
+|        #}        |      @}     |
+
+
+修改后使用`nunjucks`模板引擎解析的hexo插件会解析失败，所以需要同步修改依赖`nunjucks`模板引擎的hexo插件。
+
+之所以这么做是因为[hexo](http://hexo.io)使用`nunjucks`解析生成静态HTML。然后我的主站[xcoding](http://xcoding.tech)使用了GitHub+hexo搭建。然后博客主要用于记录[EmberJS](http://emberjs.com)相关文章，EmberJS很多标签都是使用`{{}}`，与模板引擎的占位符冲突。
+
+冲突出现的问题如下：
+```js
+http://hexo.io/docs/troubleshooting.html
+Template render error: (unknown path) [Line 37, Column 81]
+  expected variable end
+
+
+Unhandled rejection Template render error: (unknown path) [Line 10, Column 95]
+  unexpected token: #
+```
+
+当然也有其他解决方案，但是自定义模板占位符是比较好的方法，详细可以看如下博客：
+[如何从根本解决hexo不兼容{{}}标签问题](http://xcoding.tech/2018/08/08/hexo/%E5%A6%82%E4%BD%95%E4%BB%8E%E6%A0%B9%E6%9C%AC%E8%A7%A3%E5%86%B3hexo%E4%B8%8D%E5%85%BC%E5%AE%B9%7B%7B%7D%7D%E6%A0%87%E7%AD%BE%E9%97%AE%E9%A2%98/)
+
+
+
 ## Install
 
 ``` bash
-$ npm install hexo-generator-search --save
+$ npm install hexo-generator-search-cst --save
 ```
 
 ## Options
