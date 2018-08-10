@@ -15,11 +15,11 @@ Generate search data for Hexo 3.0. This plugin is used for generating a search i
 由于`nunjucks`模板引擎不兼容emberjs的`{{}}`标签，所以修改了`nunjucks`模板引擎的标签占位符。
 
 | nunjucks默认占位符 | 修改后的占位符 |
-| ================ | ============ |
-|        {{        |      {$      |
-|        }}        |     $}      |
-|        {#        |      {@     |
-|        #}        |      @}     |
+| ---------------- | ------------- |
+|       `{{`        |      `{$`      |
+|        `}}`        |     `$}`      |
+|        `{#`        |      `{@`     |
+|        `#}`        |      `@}`     |
 
 
 修改后使用`nunjucks`模板引擎解析的hexo插件会解析失败，所以需要同步修改依赖`nunjucks`模板引擎的hexo插件。
